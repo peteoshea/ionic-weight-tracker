@@ -7,12 +7,12 @@ export interface Measurement {
 const measurements: Measurement[] = [
   {
     weight: '70',
-    date: '10 aug',
+    date: '10 Aug',
     id: 0,
   },
   {
     weight: '71',
-    date: '16 aug',
+    date: '16 Aug',
     id: 1,
   },
 ];

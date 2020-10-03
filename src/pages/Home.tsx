@@ -32,7 +32,7 @@ const Home: React.FC<HomeProps> = ({ measurements, setMeasurements }) => {
     <IonPage id="home-page">
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Inbox</IonTitle>
+          <IonTitle>Weight Tracker</IonTitle>
           <IonButtons slot="end">
             <IonButton routerLink={`/add`}>Add</IonButton>
           </IonButtons>
