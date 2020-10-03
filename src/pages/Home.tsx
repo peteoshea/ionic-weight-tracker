@@ -1,7 +1,9 @@
 import MeasurementListItem from '../components/MeasurementListItem';
-import React, { useState } from 'react';
-import { Measurement, getMeasurements } from '../data/measurements';
+import React from 'react';
+import { Measurement } from '../data/measurements';
 import {
+  IonButton,
+  IonButtons,
   IonContent,
   IonHeader,
   IonList,
@@ -10,17 +12,15 @@ import {
   IonRefresherContent,
   IonTitle,
   IonToolbar,
-  useIonViewWillEnter,
 } from '@ionic/react';
 import './Home.css';
 
-const Home: React.FC = () => {
-  const [measurements, setMeasurements] = useState<Measurement[]>([]);
+interface HomeProps {
+  measurements: Array<Measurement>;
+  setMeasurements: Function;
+}
 
-  useIonViewWillEnter(() => {
-    const msgs = getMeasurements();
-    setMeasurements(msgs);
-  });
+const Home: React.FC<HomeProps> = ({ measurements, setMeasurements }) => {
 
   const refresh = (e: CustomEvent) => {
     setTimeout(() => {
@@ -33,6 +33,9 @@ const Home: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Inbox</IonTitle>
+          <IonButtons slot="end">
+            <IonButton routerLink={`/add`}>Add</IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

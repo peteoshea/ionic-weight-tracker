@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
-import ViewMeasurement from './pages/ViewMeasurement';
+import Add from './pages/Add';
+import { Measurement, getMeasurements } from './data/measurements';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -24,16 +25,32 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route path="/home" component={Home} exact={true} />
-        <Route path="/measurement/:id" component={ViewMeasurement} exact={true} />
-        <Route exact path="/" render={() => <Redirect to="/home" />} />
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  const [measurements, setMeasurements] = useState<Measurement[]>([]);
+  useEffect(() => {
+    const msgs = getMeasurements();
+    setMeasurements(msgs);
+  }, []);
+
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Route
+            path="/home"
+            render={() => <Home measurements={measurements} setMeasurements={setMeasurements} />}
+            exact={true}
+          />
+          <Route
+            path="/add"
+            render={() => <Add measurements={measurements} setMeasurements={setMeasurements} />}
+            exact={true}
+          />
+          <Route exact path="/" render={() => <Redirect to="/home" />} />
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;
