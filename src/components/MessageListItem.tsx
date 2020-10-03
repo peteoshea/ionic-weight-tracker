@@ -12,13 +12,19 @@ import './MessageListItem.css';
 
 interface MessageListItemProps {
   message: Message;
+  setMessages: Function;
+  messages: Array<Message>;
 }
 
-const MessageListItem: React.FC<MessageListItemProps> = ({ message }) => {
+const MessageListItem: React.FC<MessageListItemProps> = ({ message, setMessages, messages }) => {
+  const removeItem = (message: Message) => {
+    setMessages(messages.filter(item => item.id !== message.id))
+  };
+
   return (
     <IonItemSliding>
       <IonItemOptions side="end">
-        <IonItemOption color="danger" expandable>
+        <IonItemOption color="danger" expandable onClick={() => removeItem(message)}>
           Delete
         </IonItemOption>
       </IonItemOptions>
