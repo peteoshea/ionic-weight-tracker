@@ -1,6 +1,6 @@
-import MessageListItem from '../components/MessageListItem';
+import MeasurementListItem from '../components/MeasurementListItem';
 import React, { useState } from 'react';
-import { Message, getMessages } from '../data/messages';
+import { Measurement, getMeasurements } from '../data/measurements';
 import {
   IonContent,
   IonHeader,
@@ -15,11 +15,11 @@ import {
 import './Home.css';
 
 const Home: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [measurements, setMeasurements] = useState<Measurement[]>([]);
 
   useIonViewWillEnter(() => {
-    const msgs = getMessages();
-    setMessages(msgs);
+    const msgs = getMeasurements();
+    setMeasurements(msgs);
   });
 
   const refresh = (e: CustomEvent) => {
@@ -47,8 +47,13 @@ const Home: React.FC = () => {
         </IonHeader>
 
         <IonList>
-          {messages.map((m) => (
-            <MessageListItem key={m.id} message={m} setMessages={setMessages} messages={messages} />
+          {measurements.map((m) => (
+            <MeasurementListItem
+              key={m.id}
+              measurement={m}
+              setMeasurements={setMeasurements}
+              measurements={measurements}
+            />
           ))}
         </IonList>
       </IonContent>

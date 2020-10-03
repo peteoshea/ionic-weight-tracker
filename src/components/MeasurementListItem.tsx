@@ -7,24 +7,28 @@ import {
   IonItemOptions,
   IonItemOption,
 } from '@ionic/react';
-import { Message } from '../data/messages';
-import './MessageListItem.css';
+import { Measurement } from '../data/measurements';
+import './MeasurementListItem.css';
 
-interface MessageListItemProps {
-  message: Message;
-  setMessages: Function;
-  messages: Array<Message>;
+interface MeasurementListItemProps {
+  measurement: Measurement;
+  setMeasurements: Function;
+  measurements: Array<Measurement>;
 }
 
-const MessageListItem: React.FC<MessageListItemProps> = ({ message, setMessages, messages }) => {
-  const removeItem = (message: Message) => {
-    setMessages(messages.filter(item => item.id !== message.id))
+const MeasurementListItem: React.FC<MeasurementListItemProps> = ({
+  measurement,
+  setMeasurements,
+  measurements,
+}) => {
+  const removeItem = (measurement: Measurement) => {
+    setMeasurements(measurements.filter((item) => item.id !== measurement.id));
   };
 
   return (
     <IonItemSliding>
       <IonItemOptions side="end">
-        <IonItemOption color="danger" expandable onClick={() => removeItem(message)}>
+        <IonItemOption color="danger" expandable onClick={() => removeItem(measurement)}>
           Delete
         </IonItemOption>
       </IonItemOptions>
@@ -32,12 +36,12 @@ const MessageListItem: React.FC<MessageListItemProps> = ({ message, setMessages,
         <div slot="start" className="dot dot-unread"></div>
         <IonLabel className="ion-text-wrap">
           <h2>
-            {message.fromName}
+            {measurement.fromName}
             <span className="date">
-              <IonNote>{message.date}</IonNote>
+              <IonNote>{measurement.date}</IonNote>
             </span>
           </h2>
-          <h3>{message.subject}</h3>
+          <h3>{measurement.subject}</h3>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
             incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -52,4 +56,4 @@ const MessageListItem: React.FC<MessageListItemProps> = ({ message, setMessages,
   );
 };
 
-export default MessageListItem;
+export default MeasurementListItem;
