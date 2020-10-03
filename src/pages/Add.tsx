@@ -12,6 +12,8 @@ import {
   IonButton,
 } from '@ionic/react';
 
+import { useHistory } from 'react-router-dom';
+
 import './Add.css';
 
 interface AddProps {
@@ -21,6 +23,8 @@ interface AddProps {
 
 const Add: React.FC<AddProps> = ({ measurements, setMeasurements }) => {
   const [measurement, setMeasurement] = useState<string>('');
+  const history = useHistory();
+  const today = new Date();
 
   return (
     <IonPage id="view-measurement-page">
@@ -30,7 +34,25 @@ const Add: React.FC<AddProps> = ({ measurements, setMeasurements }) => {
             <IonBackButton text="Measurements" defaultHref="/home"></IonBackButton>
           </IonButtons>
           <IonButtons slot="end">
-            <IonButton>Save</IonButton>
+            <IonButton
+              onClick={() => {
+                setMeasurements([
+                  ...measurements,
+                  {
+                    weight: measurement,
+                    id: Math.max.apply(
+                      Math,
+                      measurements.map((item) => parseInt(item.weight))
+                    ),
+                    date:
+                      today.getDate() + ' ' + today.toLocaleString('default', { month: 'short' }),
+                  },
+                ]);
+                history.push('/home');
+              }}
+            >
+              Save
+            </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
